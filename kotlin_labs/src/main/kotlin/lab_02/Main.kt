@@ -34,4 +34,3 @@ fun List<String>.joinElements(separator:String): String = this.joinToString(sepa
 fun List<String>.longest():String = this.maxByOrNull { it.length } ?: ""
 
 
-//TODO: 3. feladattol kezdve
