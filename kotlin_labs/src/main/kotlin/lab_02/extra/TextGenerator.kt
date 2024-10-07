@@ -1,9 +1,7 @@
-import java.awt.Stroke
-import kotlin.random.Random
 
 class TextGenerator {
 
-    private val prefixToPostfixMap = mutableMapOf<Pair<String, String>, MutableSet<String>>()
+    internal val prefixToPostfixMap = mutableMapOf<Pair<String, String>, MutableSet<String>>()
     private lateinit var initialPrefix : Pair<String,String>
 
     // Training the generator with text
