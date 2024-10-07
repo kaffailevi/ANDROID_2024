@@ -2,7 +2,7 @@ package lab_02.extra
 
 import TextGenerator
 
-fun main(){
+fun main() {
     // Create a new TextGenerator instance
     val textGenerator = TextGenerator()
 
@@ -14,8 +14,16 @@ fun main(){
     // Learn the words from the input text
     textGenerator.learnWords(inputText)
 
+    textGenerator.printAll()
+
     // Generate and print the output text
-    val generatedText = textGenerator.generateText()
-    println("Generated Text:")
-    println(generatedText)
+    var text = ""
+    var next = ""
+    do {
+        next = textGenerator.generateText(text)
+        text += " $next"
+        println(text)
+    } while (next != "")
+
+
 }

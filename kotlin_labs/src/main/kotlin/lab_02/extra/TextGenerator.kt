@@ -1,36 +1,54 @@
+import java.awt.Stroke
 import kotlin.random.Random
 
 class TextGenerator {
-// TODO: Something is not working properly in this class. Find and fix the issue.
-    private val prefixToPostfixMap = mutableMapOf<Pair<String, String>, MutableList<String>>()
-    private lateinit var words: List<String> ;
+
+    private val prefixToPostfixMap = mutableMapOf<Pair<String, String>, MutableSet<String>>()
+    private lateinit var initialPrefix : Pair<String,String>
+
     // Training the generator with text
     fun learnWords(text: String) {
 
-        words = text.split("\\s+".toRegex()).filter { it.isNotEmpty() }
+        var words = text.split("\\s+".toRegex())
         for (i in 0 until words.size - 2) {
             val prefix = Pair(words[i], words[i + 1])
             val postfix = words[i + 2]
-            if (!prefixToPostfixMap.containsKey(prefix)) {
-                prefixToPostfixMap[prefix] = mutableListOf()
+
+            if (i == 0) {
+                initialPrefix = prefix
             }
-            prefixToPostfixMap[prefix]?.add(postfix)
+            if (prefixToPostfixMap.containsKey(prefix)) {
+                prefixToPostfixMap[prefix]?.add(postfix)
+            } else {
+                prefixToPostfixMap[prefix] = mutableSetOf(postfix)
+            }
         }
+
     }
 
+    private fun Pair<String,String>.joinToString(): String = "${this.first} ${this.second}"
+
     // Generate text based on training
-    fun generateText(): String {
-        val result = mutableListOf(words[0], words[1])  // Start with the first two words
-        // Continue generating words
-        for (i in 0 until words.size - 2) {
-            val currentPrefix = Pair(result[i], result[i + 1])
-            val possiblePostfixes = prefixToPostfixMap[currentPrefix] ?: break
+    fun generateText(generateFrom: String): String {
 
-            // Randomly select one postfix if there are multiple choices
-            val nextWord = possiblePostfixes[Random.nextInt(possiblePostfixes.size)]
-            result.add(nextWord)
+        if (generateFrom.isEmpty()) {
+            return initialPrefix.joinToString();
         }
+        val words = generateFrom.split("\\s+".toRegex())
+        if (words.size < 2) {
+            return initialPrefix.joinToString()
+        }
+        val prefix = Pair(words[words.size - 2], words[words.size - 1])
 
-        return result.joinToString(" ")
+        return if ((prefixToPostfixMap[prefix]?.size ?: 0) > 1) {
+            prefixToPostfixMap[prefix]?.random() ?: ""
+        } else prefixToPostfixMap[prefix]?.first() ?: ""
+    }
+
+    //    print every postfix to every prefix
+    fun printAll() {
+        for ((key, value) in prefixToPostfixMap) {
+            println("Prefix: $key, Postfixes: $value")
+        }
     }
 }
