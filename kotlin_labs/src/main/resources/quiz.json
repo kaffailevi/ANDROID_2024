@@ -1,0 +1,202 @@
+[
+  {
+    "question": "What is the capital of France?",
+    "answers": [
+      "Berlin",
+      "Madrid",
+      "Paris",
+      "Rome"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Which planet is known as the Red Planet?",
+    "answers": [
+      "Earth",
+      "Mars",
+      "Jupiter",
+      "Saturn"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Who wrote 'To Kill a Mockingbird'?",
+    "answers": [
+      "Harper Lee",
+      "Mark Twain",
+      "George Orwell",
+      "J.K. Rowling"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What is the largest ocean on Earth?",
+    "answers": [
+      "Atlantic Ocean",
+      "Indian Ocean",
+      "Pacific Ocean",
+      "Southern Ocean"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "In which year did the Titanic sink?",
+    "answers": [
+      "1912",
+      "1920",
+      "1915",
+      "1918"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Which element has the chemical symbol 'O'?",
+    "answers": [
+      "Oxygen",
+      "Gold",
+      "Osmium",
+      "Oganesson"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "What is the smallest prime number?",
+    "answers": [
+      "1",
+      "2",
+      "3",
+      "5"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Which country hosted the 2016 Summer Olympics?",
+    "answers": [
+      "China",
+      "Brazil",
+      "Russia",
+      "Japan"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What is the square root of 144?",
+    "answers": [
+      "10",
+      "11",
+      "12",
+      "14"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Who painted the Mona Lisa?",
+    "answers": [
+      "Vincent van Gogh",
+      "Leonardo da Vinci",
+      "Michelangelo",
+      "Raphael"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What is the longest river in the world?",
+    "answers": [
+      "Nile",
+      "Amazon",
+      "Yangtze",
+      "Mississippi"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Which language is primarily spoken in Brazil?",
+    "answers": [
+      "Spanish",
+      "Portuguese",
+      "French",
+      "Italian"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What is the hardest natural substance on Earth?",
+    "answers": [
+      "Gold",
+      "Iron",
+      "Diamond",
+      "Platinum"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "In what year did World War II end?",
+    "answers": [
+      "1939",
+      "1945",
+      "1948",
+      "1950"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What is the chemical symbol for water?",
+    "answers": [
+      "H2O",
+      "HO2",
+      "H2",
+      "O2"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Who developed the theory of relativity?",
+    "answers": [
+      "Isaac Newton",
+      "Nikola Tesla",
+      "Albert Einstein",
+      "Galileo Galilei"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Which organ is primarily responsible for pumping blood?",
+    "answers": [
+      "Liver",
+      "Heart",
+      "Brain",
+      "Kidneys"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What is the tallest mountain in the world?",
+    "answers": [
+      "Mount Kilimanjaro",
+      "K2",
+      "Mount Everest",
+      "Denali"
+    ],
+    "correct": 2
+  },
+  {
+    "question": "Which gas do plants primarily absorb during photosynthesis?",
+    "answers": [
+      "Oxygen",
+      "Carbon Dioxide",
+      "Nitrogen",
+      "Helium"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "What is the largest mammal in the world?",
+    "answers": [
+      "Elephant",
+      "Blue Whale",
+      "Great White Shark",
+      "Giraffe"
+    ],
+    "correct": 1
+  }
+]
