@@ -1,18 +1,14 @@
-package ms.sapientia.kaffailevi.recipesapp.activities
+package ms.sapientia.kaffailevi.recipesapp.activity
 
 import android.content.ContentValues.TAG
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.EditText
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import ms.sapientia.kaffailevi.recipesapp.R
 import ms.sapientia.kaffailevi.recipesapp.databinding.ActivityMainBinding
-import ms.sapientia.kaffailevi.recipesapp.databinding.ActivitySplashBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var message: String;

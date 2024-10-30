@@ -1,4 +1,4 @@
-package ms.sapientia.kaffailevi.recipesapp.activities
+package ms.sapientia.kaffailevi.recipesapp.activity
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
