@@ -3,4 +3,6 @@
     <string name="app_slogan">Your Culinary Companion.</string>
     <string name="app_welcome_message">Welcome to RecipeHub!</string>
     <string name="app_get_started">Get started!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
