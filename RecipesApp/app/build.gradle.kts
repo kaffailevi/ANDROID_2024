@@ -69,5 +69,8 @@ dependencies {
     androidTestImplementation(libs.androidx.navigation.testing)
     implementation (libs.material.v1110alpha01)
 
+//    gson
+    implementation(libs.gson)
+
 
 }
