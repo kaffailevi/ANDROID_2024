@@ -1,11 +1,17 @@
 package ms.sapientia.kaffailevi.recipesapp.ui
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import ms.sapientia.kaffailevi.recipesapp.R
+import ms.sapientia.kaffailevi.recipesapp.databinding.FragmentHomeBinding
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.viewmodel.RecipeViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +28,10 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var binding: FragmentHomeBinding;
+    private val recipeViewModel : RecipeViewModel by viewModels()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -31,10 +41,21 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+// In your Activity or Fragment:
+
+        recipeViewModel.loadInstructionData(this.requireContext())
+        recipeViewModel.recipeList.observe(viewLifecycleOwner) {
+                recipes ->
+            for (recipesModel in recipes) {
+                Log.d("recipes", recipesModel.toString())
+            }
+        }
+
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -49,12 +70,11 @@ class HomeFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        fun newInstance(param1: String, param2: String) = HomeFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_PARAM1, param1)
+                putString(ARG_PARAM2, param2)
             }
+        }
     }
 }

@@ -11,6 +11,6 @@ data class RecipeDTO(
     val originalVideoUrl: String,
     val country: String,
     val numServings: Long,
-    val components: List<ComponentDTO?>,
-    val instructions: List<InstructionDTO?>,
+    val components: List<ComponentDTO>,
+    val instructions: List<InstructionDTO>,
 )

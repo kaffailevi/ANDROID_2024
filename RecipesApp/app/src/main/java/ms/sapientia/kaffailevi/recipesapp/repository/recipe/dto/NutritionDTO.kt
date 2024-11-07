@@ -8,3 +8,4 @@ data class NutritionDTO(
     val sugar: Long,
     val fiber: Long,
 )
+
