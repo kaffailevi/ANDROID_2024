@@ -12,6 +12,7 @@ import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dto.MeasurementDTO
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dto.NutritionDTO
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dto.RecipeDTO
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dto.RecipeDetailDTO
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dto.UnitDTO
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.ComponentModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.IngredientModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.InstructionModel
@@ -19,6 +20,7 @@ import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.MeasurementMod
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.NutritionModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeDetailModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeModel
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.UnitModel
 import java.io.IOException
 
 class RecipeRepository {
@@ -118,7 +120,7 @@ class RecipeRepository {
 
     private fun MeasurementDTO.toModel(): MeasurementModel {
         return MeasurementModel(
-            quantity = this.quantity, unit = this.unit
+            quantity = this.quantity, unit = this.unit.toModel()
         )
     }
 
@@ -165,6 +167,15 @@ class RecipeRepository {
     fun List<RecipeDTO>.toRecipeModelList(): List<RecipeModel> {
         return this.map { it.toModel() }
     }
+    private fun UnitDTO.toModel(): UnitModel {
+        return UnitModel(
+            name = this.name,
+            displaySingular = this.displaySingular,
+            displayPlural = this.displayPlural,
+            abbreviation = this.abbreviation
+        )
+    }
 
 
 }
+
