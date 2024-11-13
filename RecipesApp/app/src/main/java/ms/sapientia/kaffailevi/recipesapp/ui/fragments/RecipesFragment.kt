@@ -1,13 +1,17 @@
 package ms.sapientia.kaffailevi.recipesapp.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import ms.sapientia.kaffailevi.recipesapp.R
 import ms.sapientia.kaffailevi.recipesapp.databinding.FragmentRecipesBinding
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.viewmodel.RecipeViewModel
 import ms.sapientia.kaffailevi.recipesapp.ui.recipe.RecipeAdapter
 
@@ -38,6 +42,11 @@ class RecipesFragment : Fragment() {
 
     }
 
+    private fun navigateToRecipeDetail(recipe: RecipeModel) {
+        Log.d("CLICK", "Recipe clicked: ${recipe.name}")
+        findNavController().navigate(R.id.action_recipesFragment_to_recipeDetailFragment)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -47,10 +56,16 @@ class RecipesFragment : Fragment() {
         // Set the RecyclerView layout manager
         val recyclerView = binding.recipesRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
-
+        recyclerView.adapter = RecipeAdapter(
+            listOf(),
+            {}
+        )
         // Observe the recipeList and update the adapter when data changes
         recipeViewModel.recipeList.observe(viewLifecycleOwner) { recipes ->
-            recyclerView.adapter = RecipeAdapter(recipes)
+            recyclerView.adapter = RecipeAdapter(
+                recipes,
+                onItemClick = { recipe: RecipeModel -> navigateToRecipeDetail(recipe) })
+
         }
 
         // Load data into the view model

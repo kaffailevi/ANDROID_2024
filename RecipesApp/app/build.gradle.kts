@@ -71,6 +71,7 @@ dependencies {
 
 //    gson
     implementation(libs.gson)
+    implementation(libs.glide)
 
 
 }
