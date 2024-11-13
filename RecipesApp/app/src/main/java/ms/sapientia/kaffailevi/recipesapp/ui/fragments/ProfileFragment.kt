@@ -1,4 +1,4 @@
-package ms.sapientia.kaffailevi.recipesapp.ui
+package ms.sapientia.kaffailevi.recipesapp.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="ms.sapientia.kaffailevi.recipesapp.ui.HomeFragment"
+        android:name="ms.sapientia.kaffailevi.recipesapp.ui.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/recipesFragment"
-        android:name="ms.sapientia.kaffailevi.recipesapp.ui.RecipesFragment"
+        android:name="ms.sapientia.kaffailevi.recipesapp.ui.fragments.RecipesFragment"
         android:label="fragment_recipes"
         tools:layout="@layout/fragment_recipes">
 <!--        <action-->
@@ -34,12 +34,12 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="ms.sapientia.kaffailevi.recipesapp.ui.ProfileFragment"
+        android:name="ms.sapientia.kaffailevi.recipesapp.ui.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile"/>
     <fragment
         android:id="@+id/recipeDetailFragment"
-        android:name="ms.sapientia.kaffailevi.recipesapp.ui.RecipeDetailFragment"
+        android:name="ms.sapientia.kaffailevi.recipesapp.ui.fragments.RecipeDetailFragment"
         android:label="fragment_recipe_detail"
         tools:layout="@layout/fragment_recipe_detail" />
 

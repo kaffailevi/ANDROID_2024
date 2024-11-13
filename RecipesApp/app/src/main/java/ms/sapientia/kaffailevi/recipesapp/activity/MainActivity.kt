@@ -7,15 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ms.sapientia.kaffailevi.recipesapp.R
-import ms.sapientia.kaffailevi.recipesapp.databinding.ActivityMainBinding
-import ms.sapientia.kaffailevi.recipesapp.ui.HomeFragment
-import ms.sapientia.kaffailevi.recipesapp.ui.RecipesFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var message: String;
@@ -40,5 +35,8 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setupWithNavController(navController)
     }
+
+
+
 
 }
