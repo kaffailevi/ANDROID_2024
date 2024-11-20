@@ -23,13 +23,20 @@ import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.UnitModel
 import java.io.IOException
 
-class RecipeRepository {
-    lateinit var recipeList: MutableList<RecipeModel>
-    lateinit var recipeDetailModel: RecipeDetailModel
+
+object RecipeRepository {
+    private lateinit var recipeList: MutableList<RecipeModel>
+    private lateinit var recipeDetailModel: RecipeDetailModel
+
+
 
     fun getAll(context: Context): MutableList<RecipeModel> {
         readAll(context)
         return recipeList
+    }
+    fun getDetail(context: Context): RecipeDetailModel {
+        readAll(context)
+        return recipeDetailModel
     }
 
     private fun readAll(context: Context){

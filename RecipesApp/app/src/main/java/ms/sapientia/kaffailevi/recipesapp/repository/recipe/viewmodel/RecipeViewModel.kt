@@ -12,7 +12,7 @@ import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeModel
 class RecipeViewModel : ViewModel() {
     private val _recipeList = MutableLiveData<List<RecipeModel>>()
     val recipeList: LiveData<List<RecipeModel>> get() = _recipeList
-    private val recipeRepository = RecipeRepository()
+    private val recipeRepository = RecipeRepository
 
 
     fun loadInstructionData(context: Context) {

@@ -7,4 +7,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lorem">Lorem ipsum dolor sit amet</string>
     <string name="lorem_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean rutrum in orci et euismod. Fusce fringilla blandit ex, ornare mattis arcu iaculis in. Vivamus condimentum ut purus at ultrices. Phasellus dictum massa vitae volutpat maximus. Donec ut velit non turpis porta viverra. Nullam venenatis lectus sit amet est faucibus, eu blandit orci ultricies. In interdum, nisi sed convallis auctor, magna ipsum cursus felis, ut fermentum ligula neque in nibh. Nulla turpis orci, imperdiet at turpis vel, elementum ornare lorem. Aliquam eu nibh et sapien molestie fermentum sit amet quis tortor. Cras vel purus posuere, maximus velit in, suscipit arcu. Praesent aliquet ultrices tempus.</string>
+    <string name="add_recipe">Add recipe</string>
 </resources>
