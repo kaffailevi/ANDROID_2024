@@ -12,9 +12,11 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import ms.sapientia.kaffailevi.recipesapp.databinding.FragmentRecipeDetailBinding
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeDetailModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.viewmodel.RecipeDetailViewModel
+import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,11 +28,13 @@ private const val ARG_PARAM2 = "param2"
  * Use the [RecipeDetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class RecipeDetailFragment : Fragment() {
+@AndroidEntryPoint
+class RecipeDetailFragment: Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    @Inject
+     lateinit var viewModel: RecipeDetailViewModel
     private lateinit var recipeDetailModel: RecipeDetailModel
     private lateinit var binding: FragmentRecipeDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +49,7 @@ class RecipeDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-        val viewModel = RecipeDetailViewModel()
+
         binding = FragmentRecipeDetailBinding.inflate(inflater, container, false)
         viewModel.recipe.observe(viewLifecycleOwner) {
             recipeDetailModel = it
@@ -72,13 +76,18 @@ class RecipeDetailFragment : Fragment() {
 // Prepare the player.
         player.prepare()
 // Start the playback.
-        player.play()
         Glide.with(binding.recipeDetailImage.context)
             .load(recipeDetail.thumbnailUrl.toUri())
             .into(binding.recipeDetailImage)
 
 
 
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        binding.videoView.player?.stop()
     }
 
     companion object {

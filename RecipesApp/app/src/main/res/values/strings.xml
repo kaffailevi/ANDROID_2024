@@ -8,4 +8,47 @@
     <string name="lorem">Lorem ipsum dolor sit amet</string>
     <string name="lorem_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean rutrum in orci et euismod. Fusce fringilla blandit ex, ornare mattis arcu iaculis in. Vivamus condimentum ut purus at ultrices. Phasellus dictum massa vitae volutpat maximus. Donec ut velit non turpis porta viverra. Nullam venenatis lectus sit amet est faucibus, eu blandit orci ultricies. In interdum, nisi sed convallis auctor, magna ipsum cursus felis, ut fermentum ligula neque in nibh. Nulla turpis orci, imperdiet at turpis vel, elementum ornare lorem. Aliquam eu nibh et sapien molestie fermentum sit amet quis tortor. Cras vel purus posuere, maximus velit in, suscipit arcu. Praesent aliquet ultrices tempus.</string>
     <string name="add_recipe">Add recipe</string>
+    <string name="about">About</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="image_url">Picture URL</string>
+    <string name="video_url">Video URL</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="ingredient_name">Ingredient name</string>
+    <string name="unit">Unit</string>
+    <string name="quantity">Quantity</string>
+    <string name="_0">0</string>
+
+    <string-array name="recipe_units_array">
+        <!-- Volume Units -->
+        <item>Teaspoon (tsp)</item>
+        <item>Tablespoon (tbsp)</item>
+        <item>Cup</item>
+        <item>Milliliter (mL)</item>
+        <item>Litre (L)</item>
+        <item>Fluid Ounce (fl oz)</item>
+        <item>Pint (pt)</item>
+        <item>Quart (qt)</item>
+        <item>Gallon (gal)</item>
+
+        <!-- Weight Units -->
+        <item>Gram (g)</item>
+        <item>Kilogram (kg)</item>
+        <item>Milligram (mg)</item>
+        <item>Pound (lb)</item>
+        <item>Ounce (oz)</item>
+
+        <!-- Count-Based Units -->
+        <item>Piece</item>
+        <item>Pinch</item>
+        <item>Dash</item>
+        <item>Clove</item>
+        <item>Stick</item>
+        <item>Slice</item>
+        <item>Can</item>
+        <item>Jar</item>
+        <item>Packet</item>
+        <item>Bunch</item>
+    </string-array>
+
 </resources>

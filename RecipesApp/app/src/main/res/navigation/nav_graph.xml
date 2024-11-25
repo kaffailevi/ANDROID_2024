@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_recipesFragment_to_recipeDetailFragment"
             app:destination="@id/recipeDetailFragment" />
+        <action
+            android:id="@+id/action_recipesFragment_to_newRecipeFragment"
+            app:destination="@id/newRecipeFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -42,5 +45,10 @@
         android:name="ms.sapientia.kaffailevi.recipesapp.ui.fragments.RecipeDetailFragment"
         android:label="fragment_recipe_detail"
         tools:layout="@layout/fragment_recipe_detail" />
+    <fragment
+        android:id="@+id/newRecipeFragment"
+        android:name="ms.sapientia.kaffailevi.recipesapp.ui.fragments.NewRecipeFragment"
+        android:label="fragment_new_recipe"
+        tools:layout="@layout/fragment_new_recipe" />
 
 </navigation>
