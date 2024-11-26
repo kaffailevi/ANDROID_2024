@@ -1,11 +1,15 @@
 package ms.sapientia.kaffailevi.recipesapp.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
 import ms.sapientia.kaffailevi.recipesapp.R
+import ms.sapientia.kaffailevi.recipesapp.databinding.FragmentNewRecipeBinding
+import ms.sapientia.kaffailevi.recipesapp.databinding.IngredientInputRowItemBinding
+import ms.sapientia.kaffailevi.recipesapp.databinding.InstructionInputRowItemBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +26,12 @@ class NewRecipeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var instructionBindingList: MutableList<InstructionInputRowItemBinding> = mutableListOf()
+    private var ingredientBindingList: MutableList<IngredientInputRowItemBinding> = mutableListOf()
+
+
+    private lateinit var binding: FragmentNewRecipeBinding;
+    private lateinit var ingredientsContainer: LinearLayout;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -31,12 +41,62 @@ class NewRecipeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+
+        this.binding = FragmentNewRecipeBinding.inflate(inflater, container, false)
+
+        this.ingredientsContainer = binding.ingredientsLinearLayout
+
+        addIngredientRow(this.ingredientsContainer)
+
+        addInstructionInputRow(binding.instructionsLinearLayout)
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_recipe, container, false)
+        return binding.root
     }
+
+    private fun addInstructionInputRow(container: LinearLayout) {
+        val rowBinding = InstructionInputRowItemBinding.inflate(layoutInflater, container, false)
+        rowBinding.instructionSerialTextView.text =
+            getString(R.string.instruction, container.childCount.toString())
+
+
+        binding.addInstructionButton.setOnClickListener {
+            if(rowBinding.instructionEditText.text.isNotEmpty())
+                addInstructionInputRow(container)
+        }
+        container.addView(rowBinding.root)
+        instructionBindingList.add(rowBinding)
+    }
+
+
+    private fun addIngredientRow(container: LinearLayout) {
+        // Inflate a new ingredient_input_row_item
+        val rowBinding = IngredientInputRowItemBinding.inflate(layoutInflater, container, false)
+
+        // Set up a listener to add a new row when the current one is filled
+
+        val onClickFunction = { it: View ->
+            if (rowBinding.ingredientNameEditText.text.isNotEmpty() && rowBinding.ingredientQuantityEditText.text.isNotEmpty() && rowBinding.ingredientUnitSpinner.selectedItemPosition != 0) {
+                // Check if this is the last row in the container
+                if (container.indexOfChild(rowBinding.root) == container.childCount - 1) {
+                    // Add a new row
+                    addIngredientRow(container)
+                }
+            }
+        }
+
+//        rowBinding.ingredientNameEditText.setOnFocusChangeListener(onClickFunction)
+//        rowBinding.ingredientQuantityEditText.setOnFocusChangeListener(onClickFunction)
+//        rowBinding.ingredientUnitSpinner.setOnFocusChangeListener(onClickFunction)
+        binding.addIngredientButton.setOnClickListener(onClickFunction)
+        // Add the row to the container
+        container.addView(rowBinding.root)
+        ingredientBindingList.add(rowBinding)
+    }
+
 
     companion object {
         /**
@@ -49,12 +109,11 @@ class NewRecipeFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            NewRecipeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        fun newInstance(param1: String, param2: String) = NewRecipeFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_PARAM1, param1)
+                putString(ARG_PARAM2, param2)
             }
+        }
     }
 }

@@ -5,6 +5,8 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
+import dagger.hilt.android.AndroidEntryPoint
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dao.RecipeDao
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dto.ComponentDTO
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dto.IngredientDTO
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dto.InstructionDTO
@@ -13,6 +15,7 @@ import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dto.NutritionDTO
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dto.RecipeDTO
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dto.RecipeDetailDTO
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dto.UnitDTO
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.entity.RecipeEntity
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.ComponentModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.IngredientModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.InstructionModel
@@ -21,13 +24,32 @@ import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.NutritionModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeDetailModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.UnitModel
+import org.json.JSONObject
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
 
-object RecipeRepository {
+@Singleton
+class RecipeRepository @Inject constructor(private val recipeDao: RecipeDao) {
     private lateinit var recipeList: MutableList<RecipeModel>
     private lateinit var recipeDetailModel: RecipeDetailModel
 
+
+    suspend fun insertRecipe(recipe: RecipeModel) {
+        val gson = Gson()
+        val recipeJson = gson.toJson(recipe)
+        val recipeEntity = RecipeEntity(json = recipeJson)
+        recipeDao.insertRecipe(recipeEntity)
+    }
+    suspend fun getAllRecipes(): List<RecipeModel> {
+        return recipeDao.getAllRecipes().map {
+            val jsonObject = JSONObject(it.json)
+            jsonObject.apply { put("id", it.internalId) }
+            val gson = Gson()
+            gson.fromJson(jsonObject.toString(), RecipeDTO::class.java).toModel()
+        }
+    }
 
 
     fun getAll(context: Context): MutableList<RecipeModel> {

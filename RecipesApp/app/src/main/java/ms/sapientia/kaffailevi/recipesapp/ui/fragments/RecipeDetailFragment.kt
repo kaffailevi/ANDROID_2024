@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation.OptIn
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
@@ -16,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import ms.sapientia.kaffailevi.recipesapp.databinding.FragmentRecipeDetailBinding
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeDetailModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.viewmodel.RecipeDetailViewModel
-import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,12 +29,13 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 @AndroidEntryPoint
-class RecipeDetailFragment: Fragment() {
+class RecipeDetailFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    @Inject
-     lateinit var viewModel: RecipeDetailViewModel
+
+
+    private val viewModel: RecipeDetailViewModel by viewModels()
     private lateinit var recipeDetailModel: RecipeDetailModel
     private lateinit var binding: FragmentRecipeDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +80,6 @@ class RecipeDetailFragment: Fragment() {
         Glide.with(binding.recipeDetailImage.context)
             .load(recipeDetail.thumbnailUrl.toUri())
             .into(binding.recipeDetailImage)
-
 
 
     }

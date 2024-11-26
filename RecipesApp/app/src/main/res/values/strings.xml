@@ -18,8 +18,11 @@
     <string name="unit">Unit</string>
     <string name="quantity">Quantity</string>
     <string name="_0">0</string>
+    <string name="instruction">Instruction %1$s</string>
 
     <string-array name="recipe_units_array">
+       <item>Undefined</item>
+
         <!-- Volume Units -->
         <item>Teaspoon (tsp)</item>
         <item>Tablespoon (tbsp)</item>

@@ -4,13 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:useDefaultMargins="true"
+    android:layout_height="wrap_content"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp">
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/ingredientNameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -19,7 +18,7 @@
         />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/ingredientQuantityEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="50dp"
@@ -27,16 +26,13 @@
         android:inputType="number" />
 
     <Spinner
-        android:id="@+id/editTextText2"
+        android:id="@+id/ingredientUnitSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="30dp"
-        android:inputType="text"
-        android:hint="@string/unit"
         android:entries="@array/recipe_units_array"
-        >
-    </Spinner>
-
+        android:hint="@string/unit"
+        android:inputType="text"
+        android:maxWidth="30dp"></Spinner>
 
 
 </LinearLayout>

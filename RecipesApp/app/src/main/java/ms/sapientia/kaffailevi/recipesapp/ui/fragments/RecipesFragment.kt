@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import ms.sapientia.kaffailevi.recipesapp.R
 import ms.sapientia.kaffailevi.recipesapp.databinding.FragmentRecipesBinding
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.viewmodel.RecipeViewModel
 import ms.sapientia.kaffailevi.recipesapp.ui.recipe.RecipeAdapter
+import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +27,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [RecipesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class RecipesFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -70,7 +73,9 @@ class RecipesFragment : Fragment() {
 
         // Load data into the view model
         recipeViewModel.loadInstructionData(this.requireContext())
-
+        binding.fab.setOnClickListener{
+            findNavController().navigate(R.id.action_recipesFragment_to_newRecipeFragment)
+        }
         // Return the root view of the binding
         return binding.root
     }
