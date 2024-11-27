@@ -34,19 +34,20 @@ import javax.inject.Singleton
 class RecipeRepository @Inject constructor(private val recipeDao: RecipeDao) {
     private lateinit var recipeList: MutableList<RecipeModel>
     private lateinit var recipeDetailModel: RecipeDetailModel
+    private val gson = Gson()
 
-
-    suspend fun insertRecipe(recipe: RecipeModel) {
-        val gson = Gson()
+    suspend fun insertRecipeToLocalDb(recipe: RecipeModel) {
         val recipeJson = gson.toJson(recipe)
         val recipeEntity = RecipeEntity(json = recipeJson)
         recipeDao.insertRecipe(recipeEntity)
     }
-    suspend fun getAllRecipes(): List<RecipeModel> {
+
+
+
+    suspend fun getMyRecipes(): List<RecipeModel> {
         return recipeDao.getAllRecipes().map {
             val jsonObject = JSONObject(it.json)
             jsonObject.apply { put("id", it.internalId) }
-            val gson = Gson()
             gson.fromJson(jsonObject.toString(), RecipeDTO::class.java).toModel()
         }
     }
@@ -91,7 +92,6 @@ class RecipeRepository @Inject constructor(private val recipeDao: RecipeDao) {
 
     private inline fun <reified T> parseJson(jsonString: String): T? {
         return try {
-            val gson = Gson()
             val type = object : TypeToken<T>() {}.type // This specifies the correct type at runtime
             gson.fromJson<T>(jsonString, type)
         } catch (e: JsonSyntaxException) {

@@ -1,15 +1,28 @@
 package ms.sapientia.kaffailevi.recipesapp.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import ms.sapientia.kaffailevi.recipesapp.R
 import ms.sapientia.kaffailevi.recipesapp.databinding.FragmentNewRecipeBinding
 import ms.sapientia.kaffailevi.recipesapp.databinding.IngredientInputRowItemBinding
 import ms.sapientia.kaffailevi.recipesapp.databinding.InstructionInputRowItemBinding
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.ComponentModel
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.IngredientModel
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.InstructionModel
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.MeasurementModel
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeModel
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.UnitModel
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.viewmodel.NewRecipeViewModel
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.viewmodel.RecipeViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,14 +34,17 @@ private const val ARG_PARAM2 = "param2"
  * Use the [NewRecipeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class NewRecipeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    private var instructionBindingList: MutableList<InstructionInputRowItemBinding> = mutableListOf()
+    private var instructionBindingList: MutableList<InstructionInputRowItemBinding> =
+        mutableListOf()
     private var ingredientBindingList: MutableList<IngredientInputRowItemBinding> = mutableListOf()
 
+    private val recipeViewModel: NewRecipeViewModel by viewModels()
 
     private lateinit var binding: FragmentNewRecipeBinding;
     private lateinit var ingredientsContainer: LinearLayout;
@@ -52,6 +68,12 @@ class NewRecipeFragment : Fragment() {
 
         addInstructionInputRow(binding.instructionsLinearLayout)
 
+        binding.saveButton.setOnClickListener{
+            saveRecipe()
+            recipeViewModel.recipeList.observe(viewLifecycleOwner){
+                Log.d("XXX", it.toString())
+            }
+        }
 
         // Inflate the layout for this fragment
         return binding.root
@@ -64,7 +86,7 @@ class NewRecipeFragment : Fragment() {
 
 
         binding.addInstructionButton.setOnClickListener {
-            if(rowBinding.instructionEditText.text.isNotEmpty())
+            if (rowBinding.instructionEditText.text.isNotEmpty())
                 addInstructionInputRow(container)
         }
         container.addView(rowBinding.root)
@@ -95,6 +117,49 @@ class NewRecipeFragment : Fragment() {
         // Add the row to the container
         container.addView(rowBinding.root)
         ingredientBindingList.add(rowBinding)
+    }
+
+    private fun parseInputFieldsToRecipe(): RecipeModel {
+        val recipeTitle = binding.titleEditText.text.toString()
+        val recipeDescription = binding.descriptionEditText.text.toString()
+        val recipeImageUrl = binding.imageUrlEditText.text.toString()
+        val recipeVideoUrl = binding.videoUrlEditText.text.toString()
+        val recipeComponents = ingredientBindingList.mapIndexed { index, it ->
+            ComponentModel(
+                it.ingredientNameEditText.text.toString()
+                        + " " + it.ingredientQuantityEditText.text.toString()
+                        + " " + it.ingredientUnitSpinner.selectedItem.toString(),
+                "",
+                IngredientModel(it.ingredientNameEditText.text.toString()),
+                MeasurementModel(
+                    it.ingredientQuantityEditText.text.toString(),
+                    UnitModel(it.ingredientUnitSpinner.selectedItem.toString(), "", "", "")
+                ), index.toLong()
+            )
+        }
+        val recipeInstructions = instructionBindingList.mapIndexed { index, it ->
+            InstructionModel(it.instructionEditText.text.toString(), index.toLong())
+        }
+
+        return RecipeModel(
+            recipeTitle,
+            recipeDescription,
+            recipeImageUrl,
+            "",
+            false,
+            "",
+            recipeVideoUrl,
+            "",
+            1,
+            recipeComponents,
+            recipeInstructions
+        )
+
+    }
+
+    private fun saveRecipe() {
+        val recipe = parseInputFieldsToRecipe()
+        this.recipeViewModel.saveRecipe(recipe)
     }
 
 

@@ -15,7 +15,6 @@ import ms.sapientia.kaffailevi.recipesapp.databinding.FragmentRecipesBinding
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.viewmodel.RecipeViewModel
 import ms.sapientia.kaffailevi.recipesapp.ui.recipe.RecipeAdapter
-import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,7 +71,7 @@ class RecipesFragment : Fragment() {
         }
 
         // Load data into the view model
-        recipeViewModel.loadInstructionData(this.requireContext())
+        recipeViewModel.loadRecipeData(this.requireContext())
         binding.fab.setOnClickListener{
             findNavController().navigate(R.id.action_recipesFragment_to_newRecipeFragment)
         }
