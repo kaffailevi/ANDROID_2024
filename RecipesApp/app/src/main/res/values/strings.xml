@@ -19,39 +19,11 @@
     <string name="quantity">Quantity</string>
     <string name="_0">0</string>
     <string name="instruction">Instruction %1$s</string>
+    <string name="nutritional_info">Nutritional info</string>
+    <string name="my_recipes">My recipes</string>
+    <string name="favorites">Favorites</string>
+    <string name="components">Components</string>
+    <string name="instructions">Instructions</string>
 
-    <string-array name="recipe_units_array">
-       <item>Undefined</item>
-
-        <!-- Volume Units -->
-        <item>Teaspoon (tsp)</item>
-        <item>Tablespoon (tbsp)</item>
-        <item>Cup</item>
-        <item>Milliliter (mL)</item>
-        <item>Litre (L)</item>
-        <item>Fluid Ounce (fl oz)</item>
-        <item>Pint (pt)</item>
-        <item>Quart (qt)</item>
-        <item>Gallon (gal)</item>
-
-        <!-- Weight Units -->
-        <item>Gram (g)</item>
-        <item>Kilogram (kg)</item>
-        <item>Milligram (mg)</item>
-        <item>Pound (lb)</item>
-        <item>Ounce (oz)</item>
-
-        <!-- Count-Based Units -->
-        <item>Piece</item>
-        <item>Pinch</item>
-        <item>Dash</item>
-        <item>Clove</item>
-        <item>Stick</item>
-        <item>Slice</item>
-        <item>Can</item>
-        <item>Jar</item>
-        <item>Packet</item>
-        <item>Bunch</item>
-    </string-array>
 
 </resources>

@@ -75,7 +75,7 @@ dependencies {
 
     // Testing Navigation
     androidTestImplementation(libs.androidx.navigation.testing)
-    implementation (libs.material.v1110alpha01)
+    implementation(libs.material.v1110alpha01)
 
 //    gson
     implementation(libs.gson)
@@ -89,6 +89,11 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+//    implementation(libs.play.services.auth) // Update to the latest version
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.material.v190)
+    implementation(libs.logging.interceptor)
 
 }
 kapt {

@@ -1,0 +1,152 @@
+[
+  {
+    "name": "undefined",
+    "displaySingular": "Undefined",
+    "displayPlural": "Undefined",
+    "abbreviation": "-"
+  },
+  {
+    "name": "teaspoon",
+    "displaySingular": "tsp",
+    "displayPlural": "tsp",
+    "abbreviation": "tsp"
+  },
+  {
+    "name": "tablespoon",
+    "displaySingular": "tbsp",
+    "displayPlural": "tbsp",
+    "abbreviation": "tbsp"
+  },
+  {
+    "name": "cup",
+    "displaySingular": "cup",
+    "displayPlural": "cups",
+    "abbreviation": "c"
+  },
+  {
+    "name": "milliliter",
+    "displaySingular": "mL",
+    "displayPlural": "mL",
+    "abbreviation": "mL"
+  },
+  {
+    "name": "litre",
+    "displaySingular": "L",
+    "displayPlural": "L",
+    "abbreviation": "L"
+  },
+  {
+    "name": "fluid ounce",
+    "displaySingular": "fl oz",
+    "displayPlural": "fl oz",
+    "abbreviation": "fl oz"
+  },
+  {
+    "name": "pint",
+    "displaySingular": "pt",
+    "displayPlural": "pt",
+    "abbreviation": "pt"
+  },
+  {
+    "name": "quart",
+    "displaySingular": "qt",
+    "displayPlural": "qt",
+    "abbreviation": "qt"
+  },
+  {
+    "name": "gallon",
+    "displaySingular": "gal",
+    "displayPlural": "gal",
+    "abbreviation": "gal"
+  },
+  {
+    "name": "gram",
+    "displaySingular": "g",
+    "displayPlural": "g",
+    "abbreviation": "g"
+  },
+  {
+    "name": "kilogram",
+    "displaySingular": "kg",
+    "displayPlural": "kg",
+    "abbreviation": "kg"
+  },
+  {
+    "name": "milligram",
+    "displaySingular": "mg",
+    "displayPlural": "mg",
+    "abbreviation": "mg"
+  },
+  {
+    "name": "pound",
+    "displaySingular": "lb",
+    "displayPlural": "lbs",
+    "abbreviation": "lb"
+  },
+  {
+    "name": "ounce",
+    "displaySingular": "oz",
+    "displayPlural": "oz",
+    "abbreviation": "oz"
+  },
+  {
+    "name": "piece",
+    "displaySingular": "piece",
+    "displayPlural": "pieces",
+    "abbreviation": "pc"
+  },
+  {
+    "name": "pinch",
+    "displaySingular": "pinch",
+    "displayPlural": "pinches",
+    "abbreviation": "pinch"
+  },
+  {
+    "name": "dash",
+    "displaySingular": "dash",
+    "displayPlural": "dashes",
+    "abbreviation": "dash"
+  },
+  {
+    "name": "clove",
+    "displaySingular": "clove",
+    "displayPlural": "cloves",
+    "abbreviation": "clove"
+  },
+  {
+    "name": "stick",
+    "displaySingular": "stick",
+    "displayPlural": "sticks",
+    "abbreviation": "stick"
+  },
+  {
+    "name": "slice",
+    "displaySingular": "slice",
+    "displayPlural": "slices",
+    "abbreviation": "slice"
+  },
+  {
+    "name": "can",
+    "displaySingular": "can",
+    "displayPlural": "cans",
+    "abbreviation": "can"
+  },
+  {
+    "name": "jar",
+    "displaySingular": "jar",
+    "displayPlural": "jars",
+    "abbreviation": "jar"
+  },
+  {
+    "name": "packet",
+    "displaySingular": "packet",
+    "displayPlural": "packets",
+    "abbreviation": "pkt"
+  },
+  {
+    "name": "bunch",
+    "displaySingular": "bunch",
+    "displayPlural": "bunches",
+    "abbreviation": "bunch"
+  }
+]

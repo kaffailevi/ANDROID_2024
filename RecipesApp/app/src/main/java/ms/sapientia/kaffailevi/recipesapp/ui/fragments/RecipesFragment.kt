@@ -1,12 +1,15 @@
 package ms.sapientia.kaffailevi.recipesapp.ui.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +36,7 @@ class RecipesFragment : Fragment() {
     private var param2: String? = null
     private lateinit var binding: FragmentRecipesBinding;
     private val recipeViewModel: RecipeViewModel by viewModels()
+    private var initialShowState = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +48,14 @@ class RecipesFragment : Fragment() {
 
     }
 
-    private fun navigateToRecipeDetail(recipe: RecipeModel) {
+    private fun navigateToRecipeDetail(recipe: RecipeModel): Unit {
         Log.d("CLICK", "Recipe clicked: ${recipe.name}")
-        findNavController().navigate(R.id.action_recipesFragment_to_recipeDetailFragment)
+        val bundle = Bundle()
+        bundle.putLong("recipeID", recipe.recipeId)
+        findNavController().navigate(R.id.action_recipesFragment_to_recipeDetailFragment, bundle)
+
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -55,30 +63,125 @@ class RecipesFragment : Fragment() {
         // Initialize the binding object
         binding = FragmentRecipesBinding.inflate(inflater, container, false)
 
-        // Set the RecyclerView layout manager
-        val recyclerView = binding.recipesRecyclerView
+        // Set up the RecyclerView
+        val recyclerView = binding.myRecipesRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
-        recyclerView.adapter = RecipeAdapter(
-            listOf(),
-            {}
-        )
-        // Observe the recipeList and update the adapter when data changes
-        recipeViewModel.recipeList.observe(viewLifecycleOwner) { recipes ->
-            recyclerView.adapter = RecipeAdapter(
-                recipes,
-                onItemClick = { recipe: RecipeModel -> navigateToRecipeDetail(recipe) })
 
+        val detailFunction: (recipe: RecipeModel) -> Unit = { recipe ->
+            navigateToRecipeDetail(recipe)
         }
 
-        // Load data into the view model
-        recipeViewModel.loadRecipeData(this.requireContext())
-        binding.fab.setOnClickListener{
-            findNavController().navigate(R.id.action_recipesFragment_to_newRecipeFragment)
+        val favFunction: (recipe: RecipeModel) -> Unit = { recipe ->
+            addRecipeToFavs(recipe)
         }
-        // Return the root view of the binding
+
+        val onLongClickFunction: (recipe: RecipeModel) -> Boolean =
+            if (!initialShowState) { _ -> false } else { recipe ->
+                try {
+                    AlertDialog.Builder(this.requireContext())
+                        .setTitle("Delete Recipe")
+                        .setMessage("Are you sure you want to delete this recipe?")
+                        .setPositiveButton("Yes")
+                        { dialog, _ ->
+                            recipeViewModel.deleteRecipeFromApi(recipe)
+
+                            recipeViewModel.isRecipeSaved(recipe)
+                                .observe(viewLifecycleOwner) { isSaved ->
+                                    if (isSaved) {
+                                        recipeViewModel.deleteRecipeFromLocalDB(recipe)
+                                    }
+                                }
+                            Toast.makeText(
+                                this.requireContext(),
+                                "Recipe deleted successfully.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            recipeViewModel.loadRecipeData()
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton("No") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .create().show()
+
+                    true
+                } catch (e: Exception) {
+                    Log.e("DELETE", "Error deleting recipe: ${e.message}")
+                    Toast.makeText(
+                        this.requireContext(),
+                        "Failed to delete recipe.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    false
+                }
+            }
+
+        val adapter = RecipeAdapter(listOf(), detailFunction, favFunction, { recipe ->
+            recipeViewModel.isRecipeSaved(recipe)
+        }, onLongClickFunction)
+        recyclerView.adapter = adapter
+
+        // Function to observe the correct list based on the toggle state
+        val observeCurrentList = {
+            val recipeLiveData: LiveData<List<RecipeModel>> =
+                if (initialShowState) recipeViewModel.myRecipeList else recipeViewModel.recipeList
+
+            recipeLiveData.observe(viewLifecycleOwner) { recipes ->
+                adapter.updateRecipes(recipes) // Update the adapter with the new list
+            }
+        }
+
+        // Set up button listeners to toggle the state and update the observed list
+        binding.ownButton.setOnClickListener {
+            initialShowState = true
+            binding.ownButton.setTextColor(resources.getColor(R.color.white, resources.newTheme()))
+            binding.savedButton.setTextColor(
+                resources.getColor(
+                    R.color.gray_text, resources.newTheme()
+                )
+            )
+            recipeViewModel.loadMyRecipeData()
+
+            observeCurrentList()
+        }
+
+        binding.savedButton.setOnClickListener {
+            initialShowState = false
+            binding.ownButton.setTextColor(
+                resources.getColor(
+                    R.color.gray_text, resources.newTheme()
+                )
+            )
+            binding.savedButton.setTextColor(
+                resources.getColor(
+                    R.color.white, resources.newTheme()
+                )
+            )
+            recipeViewModel.loadRecipeData()
+            observeCurrentList()
+        }
+
+        // Observe the initial list
+        observeCurrentList()
+
+        // Load data into the ViewModel
+        recipeViewModel.loadRecipeData()
+        recipeViewModel.loadMyRecipeData()
         return binding.root
     }
 
+    private fun addRecipeToFavs(recipe: RecipeModel): Unit {
+        recipeViewModel.isRecipeSaved(recipe).observe(viewLifecycleOwner) { isSaved ->
+            if (isSaved) {
+                // Remove from favorites
+                recipeViewModel.deleteRecipeFromLocalDB(recipe)
+            } else {
+                // Add to favorites
+                recipeViewModel.saveRecipeToLocalDB(recipe)
+            }
+        }
+    }
 
     companion object {
         /**

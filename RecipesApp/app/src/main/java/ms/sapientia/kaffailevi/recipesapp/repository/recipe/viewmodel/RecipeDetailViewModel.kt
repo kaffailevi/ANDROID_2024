@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.RecipeRepository
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeDetailModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeModel
@@ -17,8 +19,12 @@ class RecipeDetailViewModel @Inject constructor(private val repository: RecipeRe
 
 
 
-    fun loadRecipeDetail(context: Context) {
-        _recipeDetail.value = repository.getDetail(context)
+    fun loadRecipeDetail(recipeId: Long) {
+
+        viewModelScope.launch {
+            _recipeDetail.postValue(repository.getRecipeDetail(recipeId))
+        }
+
     }
 
 

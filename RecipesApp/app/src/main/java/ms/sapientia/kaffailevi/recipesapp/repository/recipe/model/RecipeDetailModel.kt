@@ -2,7 +2,7 @@ package ms.sapientia.kaffailevi.recipesapp.repository.recipe.model
 
 
 data class RecipeDetailModel(
-//    val recipeId: Long,
+    val recipeID: Long,
     val name: String,
     val description: String,
     val thumbnailUrl: String,

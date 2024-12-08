@@ -18,4 +18,6 @@ interface RecipeDao {
     suspend fun getAllRecipes(): List<RecipeEntity>
     @Delete
     suspend fun deleteRecipe(recipe: RecipeEntity)
+    @Query("SELECT EXISTS (SELECT 1 FROM recipe WHERE internalId = :recipeId)")
+    suspend fun isRecipeSaved(recipeId: Long): Boolean
 }

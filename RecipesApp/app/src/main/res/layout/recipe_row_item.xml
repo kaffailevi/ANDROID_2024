@@ -1,41 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="275dp"
+    android:layout_height="360dp"
     android:layout_marginStart="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="5dp"
     android:layout_marginEnd="10dp"
+    android:layout_marginBottom="30dp"
     android:gravity="center_vertical"
     android:orientation="vertical"
+    app:cardCornerRadius="10dp">
 
-    >
-
-
-    <ImageView
-        android:id="@+id/recipeImage"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="153dp"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/recipeTitleTextView"
-        android:layout_width="397dp"
-        android:layout_height="wrap_content"
-        android:text="@string/lorem"
-        android:textAlignment="center"
-        android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/recipeDescriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="@string/lorem_long" />
 
-</LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <ProgressBar
+                    android:id="@+id/loadingSpinner"
+                    style="@android:style/Widget.DeviceDefault.ProgressBar.Large"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/recipeImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/recipeTitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lorem"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/recipeDescriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@string/lorem_long"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/favButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/love"
+                app:tint="@color/white" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</androidx.cardview.widget.CardView>
+
 
 
 

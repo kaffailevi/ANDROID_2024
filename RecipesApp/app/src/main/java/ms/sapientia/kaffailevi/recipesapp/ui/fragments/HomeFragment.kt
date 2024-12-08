@@ -7,9 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import ms.sapientia.kaffailevi.recipesapp.R
 import ms.sapientia.kaffailevi.recipesapp.databinding.FragmentHomeBinding
-import ms.sapientia.kaffailevi.recipesapp.repository.recipe.viewmodel.RecipeViewModel
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.RecipeModel
+import ms.sapientia.kaffailevi.recipesapp.repository.recipe.viewmodel.HomeViewModel
+import ms.sapientia.kaffailevi.recipesapp.ui.recipe.RecipeAdapter
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,20 +27,23 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
+    private var recipeList: List<RecipeModel> = emptyList<RecipeModel>()
     private lateinit var binding: FragmentHomeBinding;
-
-
+    private val viewModel: HomeViewModel by viewModels()
+    private lateinit var adapter: RecipeAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -42,12 +51,65 @@ class HomeFragment : Fragment() {
     ): View? {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val detailFunction: (recipe: RecipeModel) -> Unit = { recipe ->
+            navigateToRecipeDetail(recipe)
+        }
 
-// In your Activity or Fragment:
+        val favFunction: (recipe: RecipeModel) -> Unit = { recipe ->
+            addRecipeToFavs(recipe)
+        }
 
+        val recyclerView = binding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
+        adapter = RecipeAdapter(
+            listOf(), detailFunction, favFunction,
+            { recipe ->
+                viewModel.isRecipeSaved(recipe)
+            },
+            onLongClickFunction = { _ -> false },
+        )
+        recyclerView.adapter = adapter
+        viewModel.updateRecipesFromApi()
+        viewModel.recipes.observe(viewLifecycleOwner) { recipes ->
+            adapter.updateRecipes(recipes)
+            recipeList = recipes
+        }
 
+        binding.searchButton.setOnClickListener{
+            onSearchButtonClick()
+        }
 
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return binding.root
+    }
+
+    private fun addRecipeToFavs(recipe: RecipeModel): Unit {
+        viewModel.isRecipeSaved(recipe).observe(viewLifecycleOwner) { isSaved ->
+            if (isSaved) {
+                // Remove from favorites
+                viewModel.deleteRecipeFromLocalDB(recipe)
+            } else {
+                // Add to favorites
+                viewModel.saveRecipeToLocalDB(recipe)
+            }
+        }
+    }
+
+    private fun navigateToRecipeDetail(recipe: RecipeModel): Unit {
+        Log.d("CLICK", "Recipe clicked: ${recipe.name}")
+        val bundle = Bundle()
+        bundle.putLong("recipeID", recipe.recipeId)
+        findNavController().navigate(R.id.action_homeFragment_to_recipeDetailFragment, bundle)
+    }
+
+    private fun onSearchButtonClick() {
+        val searchInput = binding.searchEditText.text.toString()
+        if (searchInput.isNotEmpty()) {
+            val recipesFiltered = recipeList.filter { recipe ->
+                recipe.name.contains(searchInput, ignoreCase = true)
+                        || recipe.keywords.contains(searchInput, ignoreCase = true)
+            }
+            adapter.updateRecipes(recipesFiltered)
+        } else viewModel.updateRecipesFromApi()
     }
 
     companion object {
@@ -68,4 +130,5 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
 }

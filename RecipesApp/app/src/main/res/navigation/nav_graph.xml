@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_recipesFragment"
             app:destination="@id/recipesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment" />
     </fragment>
 
     <fragment
@@ -39,7 +42,11 @@
         android:id="@+id/profileFragment"
         android:name="ms.sapientia.kaffailevi.recipesapp.ui.fragments.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_newRecipeFragment"
+            app:destination="@id/newRecipeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recipeDetailFragment"
         android:name="ms.sapientia.kaffailevi.recipesapp.ui.fragments.RecipeDetailFragment"

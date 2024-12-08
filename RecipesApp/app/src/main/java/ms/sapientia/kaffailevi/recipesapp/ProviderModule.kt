@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.RecipeDatabase
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.dao.RecipeDao
+import ms.sapientia.kaffailevi.recipesapp.service.RecipeApiClient
 import javax.inject.Singleton
 
 @Module
@@ -19,9 +20,7 @@ object ProviderModule {
     @Singleton
     fun provideRecipeDatabase(@ApplicationContext context: Context): RecipeDatabase {
         return Room.databaseBuilder(
-            context,
-            RecipeDatabase::class.java,
-            "recipe_database"
+            context, RecipeDatabase::class.java, "recipe_database"
         ).build()
     }
 
@@ -29,4 +28,13 @@ object ProviderModule {
     fun provideRecipeDao(database: RecipeDatabase): RecipeDao {
         return database.recipeDao()
     }
+    @Provides
+    @Singleton
+    fun provideRecipeApiClient(): RecipeApiClient {
+        return RecipeApiClient()
+    }
+
+
+
+
 }

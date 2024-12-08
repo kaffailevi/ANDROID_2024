@@ -10,29 +10,27 @@
 
     <EditText
         android:id="@+id/ingredientNameEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:maxWidth="200dp"
         android:hint="@string/ingredient_name"
-        />
+        android:inputType="text"
+        android:maxWidth="200dp" />
 
     <EditText
         android:id="@+id/ingredientQuantityEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="63dp"
         android:layout_height="wrap_content"
-        android:maxWidth="50dp"
         android:hint="@string/_0"
-        android:inputType="number" />
+        android:inputType="number"
+        android:maxWidth="50dp" />
 
-    <Spinner
-        android:id="@+id/ingredientUnitSpinner"
+    <TextView
+        android:id="@+id/ingredientUnitTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:entries="@array/recipe_units_array"
-        android:hint="@string/unit"
-        android:inputType="text"
-        android:maxWidth="30dp"></Spinner>
+        android:layout_weight="1"
+        android:text="TextView"
+        android:textSize="18sp" />
 
 
 </LinearLayout>

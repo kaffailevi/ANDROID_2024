@@ -10,4 +10,7 @@
     <color name="background">#F3F2E4</color>
     <color name="floating_button_ripple_color">#D1C136</color>
     <color name="floating_button_background_color">#f6c03b</color>
+    <color name="gray_text">#D5A0A0A0</color>
+    <color name="gray_light">#555555</color>
+    <color name="transparent">#00FFFCFC</color>
 </resources>
