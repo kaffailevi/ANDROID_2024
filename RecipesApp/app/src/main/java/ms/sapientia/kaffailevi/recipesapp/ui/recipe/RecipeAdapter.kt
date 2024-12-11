@@ -77,7 +77,9 @@ class RecipeAdapter(
 
         }
         holder.binding.root.setOnLongClickListener {
-           onLongClickFunction(recipe)
+            val res = onLongClickFunction(recipe)
+
+            res
         }
         val progressBar = holder.binding.loadingSpinner // Reference the ProgressBar from the layout
 
@@ -118,4 +120,15 @@ class RecipeAdapter(
         this.dataSet = recipes
         this.notifyDataSetChanged()
     }
+
+    fun removeRecipe(recipe: RecipeModel) {
+        val position = dataSet.indexOf(recipe)
+        if (position != -1) {
+            dataSet = dataSet.toMutableList().apply {
+                removeAt(position)
+            }
+            notifyItemRemoved(position)
+        }
+    }
+
 }

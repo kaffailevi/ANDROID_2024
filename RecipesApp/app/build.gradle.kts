@@ -94,7 +94,7 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.material.v190)
     implementation(libs.logging.interceptor)
-
+    implementation("com.auth0.android:jwtdecode:2.0.0")
 }
 kapt {
     correctErrorTypes = true

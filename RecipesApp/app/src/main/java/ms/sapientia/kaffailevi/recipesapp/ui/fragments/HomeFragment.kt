@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -75,9 +77,29 @@ class HomeFragment : Fragment() {
             recipeList = recipes
         }
 
-        binding.searchButton.setOnClickListener{
+        binding.searchButton.setOnClickListener {
             onSearchButtonClick()
         }
+        binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
+
+            // Handle the action (e.g., process input)
+            onSearchButtonClick()
+            // Hide the keyboard
+            val imm = getSystemService(
+                requireContext(),
+                InputMethodManager::class.java
+            ) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
+
+            // Optionally clear the focus
+            binding.searchEditText.clearFocus()
+
+            true // Indicate the action was handled
+
+            // Let the system handle other actions
+
+        }
+
 
         return binding.root
     }

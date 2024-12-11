@@ -2,12 +2,10 @@ package ms.sapientia.kaffailevi.recipesapp.ui.fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -20,7 +18,7 @@ import ms.sapientia.kaffailevi.recipesapp.R
 import ms.sapientia.kaffailevi.recipesapp.databinding.FragmentNewRecipeBinding
 import ms.sapientia.kaffailevi.recipesapp.databinding.IngredientInputRowItemBinding
 import ms.sapientia.kaffailevi.recipesapp.databinding.InstructionInputRowItemBinding
-import ms.sapientia.kaffailevi.recipesapp.databinding.NutritionItemBinding
+import ms.sapientia.kaffailevi.recipesapp.databinding.NutritionItemInputBinding
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.ComponentModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.IngredientModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.model.InstructionModel
@@ -53,7 +51,7 @@ class NewRecipeFragment : Fragment() {
 
     private val recipeViewModel: NewRecipeViewModel by viewModels()
 
-    private lateinit var nutritionItemBinding: NutritionItemBinding
+    private lateinit var nutritionItemBinding: NutritionItemInputBinding
 
     private lateinit var possibleIngredientUnits: HashMap<String, UnitModel>
 
@@ -90,7 +88,7 @@ class NewRecipeFragment : Fragment() {
         addInstructionInputRow(binding.instructionsLinearLayout)
 
         val nutritionFrameLayout = binding.nutritionFrameLayout
-        nutritionItemBinding = NutritionItemBinding.inflate(layoutInflater)
+        nutritionItemBinding = NutritionItemInputBinding.inflate(layoutInflater)
         nutritionFrameLayout.addView(nutritionItemBinding.root)
 
 
@@ -165,12 +163,18 @@ class NewRecipeFragment : Fragment() {
         val recipeImageUrl = binding.imageUrlEditText.text.toString()
         val recipeVideoUrl = binding.videoUrlEditText.text.toString()
         val nutrition: NutritionModel = NutritionModel(
-            calories = nutritionItemBinding.caloriesValue.text.toString().toLong(),
-            protein = nutritionItemBinding.proteinValue.text.toString().toLong(),
-            fat = nutritionItemBinding.fatValue.text.toString().toLong(),
-            carbohydrates = nutritionItemBinding.carbohydratesValue.text.toString().toLong(),
-            sugar = nutritionItemBinding.sugarValue.text.toString().toLong(),
-            fiber = nutritionItemBinding.fiberValue.text.toString().toLong()
+            calories = nutritionItemBinding.caloriesValue.text.toString().takeIf { it.isNotEmpty() }
+                ?.toLong() ?: 0L,
+            protein = nutritionItemBinding.proteinValue.text.toString().takeIf { it.isNotEmpty() }
+                ?.toLong() ?: 0L,
+            fat = nutritionItemBinding.fatValue.text.toString().takeIf { it.isNotEmpty() }?.toLong()
+                ?: 0L,
+            carbohydrates = nutritionItemBinding.carbohydratesValue.text.toString()
+                .takeIf { it.isNotEmpty() }?.toLong() ?: 0L,
+            sugar = nutritionItemBinding.sugarValue.text.toString().takeIf { it.isNotEmpty() }
+                ?.toLong() ?: 0L,
+            fiber = nutritionItemBinding.fiberValue.text.toString().takeIf { it.isNotEmpty() }
+                ?.toLong() ?: 0L
         )
         Log.d("NutritionBinding", nutritionItemBinding.caloriesValue.text.toString())
         val recipeComponents = ingredientBindingList.mapIndexed { index, it ->
@@ -198,7 +202,7 @@ class NewRecipeFragment : Fragment() {
             description = recipeDescription,
             thumbnailUrl = recipeImageUrl,
             keywords = recipeComponents.joinToString(" ") { it.ingredient.name },
-            isPublic = false,
+            isPublic = binding.publicCheck.isChecked,
             userEmail = "",
             originalVideoUrl = recipeVideoUrl,
             country = "RO",

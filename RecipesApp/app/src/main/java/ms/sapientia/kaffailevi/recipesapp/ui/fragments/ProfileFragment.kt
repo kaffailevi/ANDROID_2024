@@ -5,14 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.auth0.android.jwt.JWT
 import dagger.hilt.android.AndroidEntryPoint
 import ms.sapientia.kaffailevi.recipesapp.R
 import ms.sapientia.kaffailevi.recipesapp.databinding.FragmentProfileBinding
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.viewmodel.NewRecipeViewModel
 import ms.sapientia.kaffailevi.recipesapp.repository.recipe.viewmodel.ProfileViewModel
+import ms.sapientia.kaffailevi.recipesapp.service.TOKEN
 import ms.sapientia.kaffailevi.recipesapp.ui.recipe.RecipeAdapter
 import javax.inject.Inject
 
@@ -47,13 +50,14 @@ class ProfileFragment : Fragment() {
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-//        val recyclerView = binding.myRecipesRecyclerView
-//        recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
-//        recyclerView.adapter = RecipeAdapter(listOf()) {}
-//        profileViewModel.loadMyRecipes()
-//        profileViewModel.myRecipeList.observe(viewLifecycleOwner){
-//            recyclerView.adapter = RecipeAdapter(it){}
-//        }
+        binding.userEmail.text = JWT(TOKEN).getClaim("email").asString()
+
+        val myRecipeCountView :TextView  = binding.myRecipeCount;
+
+        profileViewModel.myRecipeList.observe(viewLifecycleOwner){
+            myRecipeCountView.text = "Your recipe count: ${it.size}"
+        }
+        profileViewModel.loadMyRecipes()
         binding.fab.setOnClickListener{
             findNavController().navigate(R.id.action_profileFragment_to_newRecipeFragment)
         }

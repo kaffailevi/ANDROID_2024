@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,8 +9,12 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,6 +66,45 @@
                     android:ems="10"
                     android:hint="@string/video_url"
                     android:inputType="textUri" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Number of servings..."
+                        android:inputType="number" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:labelFor="@+id/publicCheck"
+                            android:padding="3dp"
+                            android:text="Want it public?"
+                            android:textSize="18sp" />
+
+                        <CheckBox
+                            android:id="@id/publicCheck"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -75,10 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:text="@string/ingredients" />
-                <!--            <include-->
-                <!--                android:id="@+id/ingredientInputRowItem"-->
-                <!--                layout="@layout/ingredient_input_row_item"-->
-                <!--                />-->
+
 
             </LinearLayout>
 
@@ -86,9 +126,9 @@
                 android:id="@+id/addIngredientButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:backgroundTint="#90ee90"
                 android:scaleType="fitCenter"
                 android:src="@drawable/baseline_add_24"
+                android:theme="@style/Theme.Material3.DynamicColors.Dark"
                 app:tint="@color/white" />
 
             <LinearLayout
@@ -103,30 +143,38 @@
                 android:id="@+id/addInstructionButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:backgroundTint="#90ee90"
                 android:scaleType="fitCenter"
                 android:src="@drawable/baseline_add_24"
+                android:theme="@style/Theme.Material3.DynamicColors.Dark"
                 app:tint="@color/white" />
 
 
             <FrameLayout
                 android:id="@+id/nutritionFrameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </FrameLayout>
-
-
-            <Button
-                android:id="@+id/saveButton"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save Recipe"
-                android:theme="@style/Theme.Material3.DynamicColors.Light"
-                tools:ignore="HardcodedText" />
+                android:layout_marginBottom="200dp"
+                />
 
 
         </LinearLayout>
 
 
     </androidx.core.widget.NestedScrollView>
-</FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:scaleType="centerCrop"
+        android:src="@drawable/save"
+        android:theme="@style/Theme.Material3.DynamicColors.Dark"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9"
+        tools:ignore="HardcodedText" />
+</androidx.constraintlayout.widget.ConstraintLayout>

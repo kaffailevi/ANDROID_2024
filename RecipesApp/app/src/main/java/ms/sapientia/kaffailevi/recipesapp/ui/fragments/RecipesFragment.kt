@@ -38,6 +38,8 @@ class RecipesFragment : Fragment() {
     private val recipeViewModel: RecipeViewModel by viewModels()
     private var initialShowState = true
 
+    private lateinit var recipeList: MutableList<RecipeModel>;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -57,6 +59,15 @@ class RecipesFragment : Fragment() {
     }
 
 
+    private fun observeCurrentList(adapter: RecipeAdapter) {
+        val recipeLiveData: LiveData<List<RecipeModel>> =
+            if (initialShowState) recipeViewModel.myRecipeList else recipeViewModel.recipeList
+
+        recipeLiveData.observe(viewLifecycleOwner) { recipes ->
+            adapter.updateRecipes(recipes) // Update the adapter with the new list
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -74,7 +85,6 @@ class RecipesFragment : Fragment() {
         val favFunction: (recipe: RecipeModel) -> Unit = { recipe ->
             addRecipeToFavs(recipe)
         }
-
         val onLongClickFunction: (recipe: RecipeModel) -> Boolean =
             if (!initialShowState) { _ -> false } else { recipe ->
                 try {
@@ -97,6 +107,7 @@ class RecipesFragment : Fragment() {
                                 Toast.LENGTH_SHORT
                             ).show()
                             recipeViewModel.loadRecipeData()
+                            recipeViewModel.loadMyRecipeData()
                             dialog.dismiss()
                         }
                         .setNegativeButton("No") { dialog, _ ->
@@ -116,21 +127,14 @@ class RecipesFragment : Fragment() {
                     false
                 }
             }
-
         val adapter = RecipeAdapter(listOf(), detailFunction, favFunction, { recipe ->
             recipeViewModel.isRecipeSaved(recipe)
         }, onLongClickFunction)
         recyclerView.adapter = adapter
 
-        // Function to observe the correct list based on the toggle state
-        val observeCurrentList = {
-            val recipeLiveData: LiveData<List<RecipeModel>> =
-                if (initialShowState) recipeViewModel.myRecipeList else recipeViewModel.recipeList
 
-            recipeLiveData.observe(viewLifecycleOwner) { recipes ->
-                adapter.updateRecipes(recipes) // Update the adapter with the new list
-            }
-        }
+        // Function to observe the correct list based on the toggle state
+
 
         // Set up button listeners to toggle the state and update the observed list
         binding.ownButton.setOnClickListener {
@@ -143,7 +147,7 @@ class RecipesFragment : Fragment() {
             )
             recipeViewModel.loadMyRecipeData()
 
-            observeCurrentList()
+            observeCurrentList(adapter)
         }
 
         binding.savedButton.setOnClickListener {
@@ -159,11 +163,11 @@ class RecipesFragment : Fragment() {
                 )
             )
             recipeViewModel.loadRecipeData()
-            observeCurrentList()
+            observeCurrentList(adapter)
         }
 
         // Observe the initial list
-        observeCurrentList()
+        observeCurrentList(adapter)
 
         // Load data into the ViewModel
         recipeViewModel.loadRecipeData()

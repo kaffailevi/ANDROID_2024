@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="3"
-        android:rowCount="2"
+        android:orientation="horizontal"
         android:padding="16dp"
-        android:orientation="horizontal">
+        android:rowCount="2">
 
         <!-- First item -->
         <LinearLayout
@@ -19,10 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center"
             android:layout_margin="5dp"
-            >
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="60dp"
@@ -35,7 +34,8 @@
                 android:id="@+id/caloriesValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:inputType="number"
+                android:hint="0"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -53,10 +53,9 @@
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center"
             android:layout_margin="5dp"
-            >
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="60dp"
@@ -69,7 +68,8 @@
                 android:id="@+id/proteinValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:inputType="number"
+                android:hint="0"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -88,10 +88,9 @@
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center"
             android:layout_margin="5dp"
-            >
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="60dp"
@@ -104,7 +103,8 @@
                 android:id="@+id/fatValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:inputType="number"
+                android:hint="0"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -122,10 +122,9 @@
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center"
             android:layout_margin="5dp"
-            >
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="60dp"
@@ -138,7 +137,8 @@
                 android:id="@+id/carbohydratesValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:inputType="number"
+                android:hint="0"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -156,10 +156,9 @@
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center"
             android:layout_margin="5dp"
-            >
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="60dp"
@@ -172,7 +171,8 @@
                 android:id="@+id/sugarValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:inputType="number"
+                android:hint="0"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -190,10 +190,9 @@
             android:layout_height="wrap_content"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:gravity="center"
             android:layout_margin="5dp"
-            >
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="60dp"
@@ -206,7 +205,8 @@
                 android:id="@+id/fiberValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:inputType="number"
+                android:hint="0"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
